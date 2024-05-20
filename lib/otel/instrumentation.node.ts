@@ -19,13 +19,8 @@ export function registerOtel({ endpoint, serviceName }: Omit<OtelOptions, 'conso
     textMapPropagator: new CompositePropagator({
       propagators: [new W3CBaggagePropagator(), new W3CTraceContextPropagator()],
     }),
-    metricReader: new PeriodicExportingMetricReader({
-      exporter: new OTLPMetricExporter({}),
-    }),
-    logRecordProcessor: new logs.SimpleLogRecordProcessor(new OTLPLogExporter()),
     instrumentations: [
       new UndiciInstrumentation({}),
-      new BunyanInstrumentation({}),
     ],
   });
 
